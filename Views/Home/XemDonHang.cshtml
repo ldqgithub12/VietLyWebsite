@@ -1,0 +1,54 @@
+﻿@model PagedList.IPagedList<LeDangQuang_DoAnTotNghiep.Models.DonHang>
+@using PagedList.Mvc
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "XemDonHang";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<br>
+<h2 style="text-align:center">Thông tin đặt hàng</h2>
+<br>
+<div style="display:flex; justify-content:center">
+    <table border="2" style="margin-bottom: 15px;">
+        <tr>
+            <th class="dinhdangbang">Tên khách hàng</th>
+            <th class="dinhdangbang">Ngày đặt</th>
+            <th class="dinhdangbang">Trạng thái</th>
+            <th class="dinhdangbang">Đã giao</th>
+            <th class="dinhdangbang"></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="dinhdangbang">@item.KhachHang.HoTen</td>
+                <td class="dinhdangbang">@item.NgayDat</td>
+                <td class="dinhdangbang">@(item.TrangThai.Equals(false)?"Chờ xét duyệt" : "Đã duyệt")</td>
+                <td class="dinhdangbang">@(item.DaGiao.Equals(false)?"Đang chuẩn bị hàng" : "Đã giao cho đơn vị vận chuyển")</td>
+                @if (item.DaThanhToan.Equals(true))
+                {
+                    <td class="dinhdangbang">Đã thanh toán</td>
+                }
+                @if (item.DaHuy.Equals(true))
+                {
+                    <td class="dinhdangbang">Đã hủy</td>
+                }
+                <td class="dinhdangbang">
+                    <p style="margin-bottom: 5px;"><a href="@Url.Action("XemChiTietDonHang","Home",new {id = item.MaDonHang })" class="dinhdangchucnang">Chi tiết</a></p>
+                    @if (item.DaGiao == false && item.DaHuy == false)
+                    {
+                        <p style="margin-bottom: 5px;"><a href="@Url.Action("DaHuy", "Home", new { id = item.MaDonHang })" class="dinhdangchucnang">Hủy đơn</a></p>
+                    }
+                    @if (item.DaThanhToan == false && item.DaHuy == false)
+                    {
+                        <p><a href="@Url.Action("DaNhanHang", "Home", new { id = item.MaDonHang })" class="dinhdangchucnang">Đã nhận</a></p>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div style="width:100%; float:right; text-align: center">
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("XemDonHang", new { page }))
+</div>

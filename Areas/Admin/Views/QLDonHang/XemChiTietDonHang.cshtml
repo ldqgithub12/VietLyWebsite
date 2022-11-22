@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.ChiTietDonHang>
+@{
+    ViewBag.Title = "XemChiTietDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align: center;">Quản lý đơn hàng</h1>
+    </div>
+}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Thông tin danh mục
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Tên sách</th>
+                    <th>Số lượng</th>
+                    <th>Giá bán</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Sach.TenSach</td>
+                        <td>@item.SoLuong</td>
+                        <td>@(Convert.ToInt32(item.GiaBan)) VNĐ</td>
+                        <td>@(Convert.ToInt32(item.GiaBan) * item.SoLuong) VNĐ</td>
+                    </tr>
+                }
+                <tr>
+                    <td>Tổng tiền</td>
+                    <td colspan="3" style="text-align:right">@ViewBag.TongTien VNĐ</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div style="display:flex; flex; justify-content:space-around">
+        <button style="border: 1px solid #0d6efd; border-radius: 4px; color: white; background-color: #0d6efd; width:98px" id="btnInDonHang">In hóa đơn</button>
+        <a href="@Url.Action("Index","QLDonHang")" style="text-decoration: none; padding: 10px 20px; border: 1px solid #0d6efd; border-radius: 4px; color: white; background-color: #0d6efd ">Quay lại</a>
+    </div>
+</div>
+
+<script>
+    $("#btnInDonHang").click(function () {
+        var content = $("#datatablesSimple").html();
+        InDonHang(content);
+    });
+
+    function InDonHang(content) {
+        var printWindow = window.open('', '', 'height = 400, width=800');
+        printWindow.document.write('<html><head><title>In Hóa Đơn</title>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write('<table>');
+        printWindow.document.write(content);
+        printWindow.document.write('</table>');
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>

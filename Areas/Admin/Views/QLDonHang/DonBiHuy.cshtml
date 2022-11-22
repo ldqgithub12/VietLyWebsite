@@ -1,0 +1,43 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.DonHang>
+@{
+    ViewBag.Title = "DonBiHuy";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align: center;">Đơn hàng bị hủy</h1>
+    </div>
+}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Thông tin đơn hàng
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Tên khách hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Số điện thoại</th>
+                    <th>Địa chỉ nhận</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.KhachHang.HoTen</td>
+                        <td>@item.NgayDat</td>
+                        <td>@item.KhachHang.SoDT</td>
+                        <td>@item.DiaChiNhan</td>
+                        <td>@(item.DaHuy.Equals(true) ? "Đã hủy":"Chưa hủy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p><a href="@Url.Action("Index","QLDonHang")" style="float: right; padding: 10px 15px; border: 1px solid #0d6efd; background-color: #0d6efd; border-radius: 5px; color: white; text-decoration:none; margin-right: 20px ">Quay lại</a></p>
+</div>
+

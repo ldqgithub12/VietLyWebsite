@@ -1,0 +1,74 @@
+﻿@model LeDangQuang_DoAnTotNghiep.Models.KhachHang
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng ký</title>
+    <link rel="shortcut icon" href="~/wwwroot/icon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/wwwroot/icon/favicon.ico" type="image/x-icon">
+
+    <!-- Font Icon -->
+    <link href="~/wwwroot/LoginAssets/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <!-- Main css -->
+    <link href="~/wwwroot/LoginAssets/css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title" style="font-family:'Roboto' !important">Đăng ký</h2>
+                        @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @class = "register-form", @id = "register-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                @Html.TextBoxFor(m => m.HoTen, "", new { @class = "login__input", @placeholder = "Họ tên" })
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                @Html.TextBoxFor(m => m.Email, "", new { @class = "login__input", @placeholder = "Email" })
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                @Html.PasswordFor(m => m.MatKhau, new { @class = "login__input", @placeholder = "Mật khẩu" })
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-code-smartphone"></i></label>
+                                @Html.TextBoxFor(m => m.SoDT, "", new { @class = "login__input", @placeholder = "Điện thoại" })
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-pin"></i></label>
+                                @Html.TextBoxFor(m => m.DiaChi, "", new { @class = "login__input", @placeholder = "Địa chỉ" })
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký" style="font-family:'Roboto' !important" />
+                            </div>
+                        }
+
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="~/wwwroot/LoginAssets/images/signup-image.jpg" alt="sing up image"></figure>
+                        <a href="@Url.Action("Index","Home")" class="signup-image-link" style="font-family:'Roboto' !important">Quay lại trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JS -->
+    <script src="~/wwwroot/LoginAssets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/wwwroot/LoginAssets/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

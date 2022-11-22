@@ -1,0 +1,141 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà sách Việt Lý</title>
+    <link rel="shortcut icon" href="~/wwwroot/icon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/wwwroot/icon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="~/wwwroot/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="head_page">
+        <p class="head_banner">
+            <img src="~/wwwroot/Images/head_banner.jpg" alt="head_banner" width="100%">
+        </p>
+        <div class="head_container">
+            <div class="head_find">
+                <a href="@Url.Action("Index","Home")"><img src="~/wwwroot/Images/vietlylogo.jpg" class="logo"></a>
+                @using (Html.BeginForm("TimKiem", "Home", FormMethod.Post))
+                {
+                <div class="finding_box">
+                    <input type="text" placeholder="Tìm sản phẩm mong muốn..." class="input_search" name="searchString">
+                    <button class="find_btn"><i class="fa fa-search" style="color: white; "></i></button>
+                </div>
+                }
+                <div class="user_function">
+                    @if (Session["idUser"] == null)
+                    {
+                    <div style="text-align: center; width: 33%; float: left;">
+                        <p style="font-size: 24px;">
+                            <a href="@Url.Action("Register","Home")" style="color: black"><i class="fas fa-address-card"></i></a>
+                        </p>
+                        <p><a href="@Url.Action("Register","Home")" style="text-decoration:none; color: black">Đăng ký</a></p>
+                    </div>
+                    }
+                    @Html.Action("GioHangPartial","GioHang")
+                    @if (Session["idUser"] == null)
+                    {
+                    <div style="text-align: center; width: 33%; float: left;">
+                        <p style="font-size: 24px;">
+                            <a href="@Url.Action("Login", "Home")" style="color:black"><i class="fas fa-sign-in-alt"></i></a>
+                        </p>
+                        <p><a href="@Url.Action("Login", "Home")" style="text-decoration:none; color:black">Đăng nhập</a></p>
+                    </div>
+                    }
+                    else
+                    {
+                   <div style="width: 33%; float: left;">
+                        <p style="font-size: 24px; text-align: center; margin-top: -20px;">
+                            <a href="#" style="color:black"><i class="far fa-user"></i></a>
+                        </p>
+                        <li style="list-style: none;" class="li_main">
+                            @Session["HoTen"]
+                            <ul class="sub_inf">
+                                <li><a href="@Url.Action("XemDonHang","Home")"><i class="far fa-file-alt"></i> Đơn hàng của tôi</a></li>
+                                <li><a href="@Url.Action("XemThongTinCaNhan","Home")"><i class="far fa-id-card"></i> Cập nhật thông tin</a></li>
+                                <li><a href="@Url.Action("ChangePassword","Home")"><i class="fas fa-key"></i> Đổi mật khẩu</a></li>
+                                <li><a href="@Url.Action("Logout","Home")"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="renderBody">
+        @RenderBody()
+    </div>
+
+    <div class="content">
+       @Html.Action("XuHuong","Home")
+    </div>
+    <div class="school">
+        <img src="~/wwwroot/Images/cambridge.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/cengage.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/Harper-Collins.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/hachette.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/macgrawhill.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/macmillan.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/oxford.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/paragon.jpg" alt="" class="sch_pic">
+        <img src="~/wwwroot/Images/PearsonLogo_Avatar.png" alt="" class="sch_pic">
+    </div>
+    <div class="page_footer">
+        <div class="lienhe">
+            <p><i class="ti-email"></i> ĐĂNG KÝ NHẬN THÔNG TIN <span><input class="submitform" type="text" placeholder="Nhập địa chỉ email của bạn"></span> <button class="dk">Đăng ký</button></p>
+        </div>
+        <div class="thongtin">
+            <div class="bentrai">
+                <p><img src="~/wwwroot/Images/vietlylogo.jpg" alt="" class="gido"></p>
+                <p>Lầu 2, 03 Phan Chu Trinh, P. Điện Biên, TP. Thanh Hóa, Việt Nam</p>
+                <p>L61 Lý Thường Kiệt, P. Lam Sơn, Thành phố Thanh Hóa, Thanh Hoá</p>
+                <p style="margin-left: 150px; font-size: 20px;"><i class="fab fa-facebook"></i> <i class="fab fa-instagram-square"></i> <i class="fab fa-youtube-square"></i> <i class="fab fa-twitter-square"></i> <i class="fab fa-tumblr-square"></i> <i class="fab fa-pinterest-square"></i></p>
+            </div>
+            <div class="benphai">
+                <div class="chiaba">
+                    <h2>DỊCH VỤ</h2>
+                    <p class="dinhdang"><a href="#" class="typelink">Điều khoản sử dụng</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Chính sách bảo mật</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Giới thiệu Fahasa</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Hệ thống trung tâm - nhà sách</a></p>
+                    <br><br>
+                    <h2>LIÊN HỆ</h2>
+                    <p class="dinhdang"><i class="fas fa-map-marker-alt"></i> Lầu 2, 03 Phan Chu Trinh, P. Điện Biên, TP. Thanh Hóa, Việt Nam</p>
+                </div>
+                <div class="chiaba">
+                    <h2>HỖ TRỢ</h2>
+                    <p class="dinhdang"><a href="#" class="typelink">Chính sách đổi - trả - hoàn tiền</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Chính sách khách sỉ</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Phương thức vận chuyển</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Phương thức xuất HĐ</a></p>
+                    <br><br>
+                    <br>
+                    <p class="dinhdang" style="margin-top: 28px;"><i class="far fa-envelope"></i> cskh@fahasa.com.vn</p>
+                </div>
+                <div class="chiaba">
+                    <h2>TÀI KHOẢN</h2>
+                    <p class="dinhdang"><a href="#" class="typelink">Đăng nhập/Tạo mới tài khoản</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Thay đổi địa chỉ khách hàng</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Chi tiết tài khoản</a></p>
+                    <p class="dinhdang"><a href="#" class="typelink">Lịch sử mua hàng</a></p>
+                    <br><br>
+                    <br>
+                    <p class="dinhdang" style="margin-top: 28px;"><i class="fas fa-map-marker-alt"></i> L61 Lý Thường Kiệt, P. Lam Sơn, Thành phố Thanh Hóa, Thanh Hoá</p>
+                </div>
+                <div>
+                    <img src="~/wwwroot/Images/Screenshot 2022-01-16 195201.jpg" alt="" width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿@using LeDangQuang_DoAnTotNghiep.Models
+@model List<itemGioHang>
+@{
+    ViewBag.Title = "XemGioHang";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@if (Model == null || Model.Count == 0)
+{
+    <p style="text-align:center"><img src="~/wwwroot/Images/Empty_cart.jpg" width="300" /></p>
+    <p style="text-align:center; font-size: 18px">Chưa có sản phẩm trong giỏ hàng của bạn</p>
+    <br />
+    <p style="text-align:center;"><a href="@Url.Action("Index", "Home")" style="padding: 10px 40px; background-color: #C92127; border-radius:3px; color: white; text-decoration: none">Mua sắm ngay</a></p>
+    <br />
+}
+else
+{
+<div style="width: 65%; float:left; margin-top: 10px; margin-left: 10px">
+    <table class="table table-bordered text-center mb-0">
+        <thead class="bg-secondary text-dark" style="background-color: #EDF1FF !important">
+            <tr>
+                <th style="text-align: center; background-color: #c92127; color: white;">Tên sản phẩm</th>
+                <th style="text-align: center; background-color: #c92127; color: white;">Giá</th>
+                <th style="text-align: center; background-color: #c92127; color: white;">Số lượng</th>
+                <th style="text-align: center; background-color: #c92127; color: white;">Thành tiền</th>
+                <th style="text-align: center; background-color: #c92127; color: white;">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            @foreach (var item in Model)
+            {
+                using (Html.BeginForm("SuaGioHang", "GioHang", FormMethod.Post))
+                {
+                    @Html.Hidden("id",item.MaSach)
+                <tr>
+                    <td class="align-middle">
+                        @{ 
+                            string ImagePath = "~/wwwroot/Images/" + item.HinhAnh;
+                        }
+                        <img src="@Url.Content(ImagePath)" alt="" style="width: 70px;">
+                        <p>@item.TenSach</p>
+                    </td>
+                    <td class="align-middle">@item.DonGia.ToString("#,##") VNĐ</td>
+                    <td class="align-middle">
+                        <input type="number" name="soluongmoi" value="@item.SoLuong" min="1">
+                        <button style="background-color: #c92127; color: white; border-color: #c92127; border-radius: 4px; padding: 0px 4px;">Cập nhật</button>
+                    </td>
+                    <td class="align-middle">@(Convert.ToInt32(item.DonGia)*item.SoLuong) VNĐ</td>
+                    <td class="align-middle">
+                        <a href="@Url.Action("XoaGioHang", "GioHang", new { id = item.MaSach })"
+                           style="margin-left: 10px; text-decoration: none;"><i class="fa-solid fa-rectangle-xmark" style="color: #c92127; font-size: 35px;"></i></a>
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <div class="card border-secondary mb-5"
+         style="float:right; width: 30%; margin-top: 10px; margin-right:10px; border-radius: 5px; overflow: hidden;">
+        <div class="card-header bg-secondary border-0" style=" background-color: #c92127 !important; color: white;">
+            <h4 class="font-weight-semi-bold m-0" style="text-align: center;">Thông tin giỏ hàng</h4>
+        </div>
+        <div class="card-body">
+            @if (Session["idUser"] != null)
+            {
+                using (Html.BeginForm("DatHang","GioHang"))
+                {
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h4 class="font-weight-medium">Tổng cộng: @ViewBag.TongTien VNĐ</h4>
+                        <h3 style="text-align:center">Thông tin đặt hàng</h3>
+                        <input type="text" name="diachinhanhang" placeholder="Địa chỉ nhận hàng..."
+                       style="height:30px; border-radius:3px; padding:5px;width: 340px;" />
+                    </div>
+                    <div style="background-color: #D19C97; margin-top:10px">
+                         <button class="btn btn-block btn-primary my-3 py-3" href=""
+                    style="padding:10px; font-weight:600; font-size:20px; text-decoration:none; text-align:center">Thanh
+                    toán</button>
+                    </div> 
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("DatHang","GioHang"))
+                {
+                    <h4 class="font-weight-medium">Tổng cộng: @ViewBag.TongTien VNĐ</h4>
+                    <h3 style="text-align:center">Thông tin đặt hàng</h3>
+
+                    <input type="text" name="tenkh" placeholder="Họ tên"
+                        style="height:25px; border-radius:3px; padding:5px; width: 160px;" />
+                    <input type="text" name="emailkh" placeholder="Email"
+                        style="height:25px; border-radius:3px; padding:5px; margin-left:5px; width: 160px;" />
+                    <input type="text" name="dckh" placeholder="Địa chỉ"
+                        style="height:25px; border-radius:3px; padding:5px; margin-top:10px; width: 160px;" />
+                    <input type="text" name="sdtkh" placeholder="Số điện thoại"
+                        style="height:25px; border-radius:3px; padding:5px; margin-left:5px; width: 160px;" />
+                    <input type="text" name="diachinhanhang" placeholder="Địa chỉ nhận hàng..."
+                        style="height:30px; border-radius:3px; padding:5px;width: 330px; margin-top:10px" />
+                    <div style="background-color: #D19C97; margin-top:10px">
+                        <button class="btn btn-block btn-primary my-3 py-3"
+                            style="padding:10px; font-weight:600; font-size:20px; text-decoration:none; text-align:center; width:100%; margin-top:10px">
+                            Thanh toán
+                        </button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+}
+

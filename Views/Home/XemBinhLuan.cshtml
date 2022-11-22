@@ -1,0 +1,94 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.DanhGia>
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">*@
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script type="text/javascript">
+    function CreateOut(rating) {
+        for (var i = 1; i <= rating; i++) {
+            $("#span" + i).attr('class', 'glyphicon glyphicon-star-empty')
+        }
+    }
+    function CreateOver(rating) {
+        for (var i = 1; i <= rating; i++) {
+            $("#span" + i).attr('class', 'glyphicon glyphicon-star')
+        }
+    }
+    function CreateClick(rating) {
+        $("#lblRating").val(rating);
+        for (var i = 1; i <= rating; i++) {
+            $("#span" + i).attr('class', 'glyphicon glyphicon-star')
+        }
+        for (var i = rating + 1; i <= 5; i++) {
+            $("#span" + i).attr('class', 'glyphicon glyphicon-star-empty')
+        }
+    }
+    function CreateSelected() {
+        var rating = $("#lblRating").val();
+        for (var i = 1; i <= rating; i++) {
+            $("#span" + i).attr('class', 'glyphicon glyphicon-star')
+        }
+    }
+
+    function VerifyRating() {
+        var rating = $("#lblRating").val();
+        if (rating == 0) {
+            alert("Vui lòng chọn đánh giá");
+            return false;
+        }
+    }
+</script>
+<div style="min-height: 150px; background-color: white; overflow: hidden; width: 1230px; margin-left: 9.5%; margin-top: 15px; border-radius: 8px;">
+    <hr>
+    <h2 style="text-align: center; color: #333;">Nhận xét từ độc giả</h2>
+    <hr>
+    <br>
+    @foreach (var item in Model)
+    {
+        <div>
+            <div style="float: left; width: 20%; height: 150px">
+                <p style="font-size: 14; font-family: sans-serif; color: #333; margin-top: 5px; margin-left: 5px;"><b>@item.KhachHang.HoTen</b></p>
+                <p style="opacity: 0.7;margin-left: 5px">@item.DateDG</p>
+            </div>
+            <div style="float: left; width: 80% ;min-height: 150px">
+                <p style="color: orangered">
+                    @for (int i = 0; i < item.Rating; i++)
+                    {
+                        <span class="glyphicon glyphicon-star"></span>
+                    }
+                    @for (int? i = item.Rating; i < 5; i++)
+                    {
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    }
+                </p>
+                <p style="margin-top: 5px; margin-bottom: 15px;">
+                   @item.NoiDung
+                </p>
+            </div>
+        </div>
+    }
+    @if (Session["idUser"] == null)
+    {
+    <h4 style="text-align: center; font-family: sans-serif; color: #333;">Chỉ có thành viên mới có thể nhận xét. Vui lòng <a href="@Url.Action("Login","Home")" style="text-decoration: none;">Đăng nhập</a> hoặc <a href="@Url.Action("Register","Home")" style="text-decoration: none;">Đăng ký</a></h4>
+    }
+    else
+    {
+    <div>
+        @using (Html.BeginForm("ThemBinhLuan", "Home", FormMethod.Post, new { onsubmit = "return VerifyRating()" }))
+        {
+            <div onmouseout="CreateSelected()" style="margin-left:50px">
+                <span id="span1" onmouseout="CreateOut(1)" onmouseover="CreateOver(1)" onclick="CreateClick(1)" class="glyphicon glyphicon-star-empty"></span>
+                <span id="span2" onmouseout="CreateOut(2)" onmouseover="CreateOver(2)" onclick="CreateClick(2)" class="glyphicon glyphicon-star-empty"></span>
+                <span id="span3" onmouseout="CreateOut(3)" onmouseover="CreateOver(3)" onclick="CreateClick(3)" class="glyphicon glyphicon-star-empty"></span>
+                <span id="span4" onmouseout="CreateOut(4)" onmouseover="CreateOver(4)" onclick="CreateClick(4)" class="glyphicon glyphicon-star-empty"></span>
+                <span id="span5" onmouseout="CreateOut(5)" onmouseover="CreateOver(5)" onclick="CreateClick(5)" class="glyphicon glyphicon-star-empty"></span>
+            </div>
+            <p><input type="text" class="binhluan" placeholder="Nhập đánh giá của bạn tại đây..." name="customerComment"></p>
+            <p><button type="submit" style="height: 35px; width: 110px; background-color: #C92127; border-radius: 5px; font-size: 16px; color: white; float: right; margin-right: 75px;">Gửi đánh giá</button></p>
+            <div>
+                <input type="hidden" name="rating" id="lblRating" value="0" />
+                <input type="hidden" name="maSach" value="@ViewBag.Masach" />
+                <input type="hidden" name="strURL" value="@Request.Url.ToString()" />
+            </div>
+        }
+    </div>
+    }
+</div>

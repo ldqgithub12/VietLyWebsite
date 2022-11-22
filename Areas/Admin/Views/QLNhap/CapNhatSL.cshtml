@@ -1,0 +1,89 @@
+﻿@model LeDangQuang_DoAnTotNghiep.Models.Sach
+@{
+    ViewBag.Title = "CapNhatSL";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    string ImagePath = "~/wwwroot/Images/" + Model.Anh;
+}
+
+@section header{
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align: center;">Nhập thêm sách</h1>
+    </div>
+}
+
+@using (Html.BeginForm("CapNhatSL", "QLNhap", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaSach)
+    <table style="margin-left: 30%;">
+        <tr>
+            <td>
+                <label for="dob_au">Tên sách: </label>
+            </td>
+            <td>
+                @Html.DisplayFor(model=>model.TenSach)
+                @Html.HiddenFor(model => model.TenSach)
+            </td>
+            <td rowspan="5">
+                <img id="output" width="350" height="350" style="margin-left: 40px;" src="@Url.Content(ImagePath)" />
+                <br>
+                @Html.HiddenFor(model => model.Anh)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="hometown_au">Tác giả: </label>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TacGia)
+                @Html.HiddenFor(model => model.TacGia)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="ts_au">Số lượng: </label>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SoLuong)
+                @Html.HiddenFor(model => model.SoLuong)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="ts_au">Giá bán: </label>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Gia) VNĐ
+                @Html.HiddenFor(model => model.Gia)
+            </td>
+        </tr>
+    </table>
+    <div style="width: 100%; display:flex; justify-content: space-around; align-items:center; margin:20px 0px">
+        <div>
+            @{ var lstNCC = (SelectList)ViewBag.MaNCC;}
+            <label style="margin-right:10px">Nhà cung cấp: </label>@Html.DropDownList("MaNCC", lstNCC, htmlAttributes: new { @class = "MaNCC" })
+        </div>
+
+        <div>
+            <label>Số lượng nhập</label>
+            <input type="number" name="SLnhap" min="1" />
+        </div>
+        <div>
+            <label>Đơn giá nhập</label>
+            <input type="number" name="gianhap" min="1" />
+        </div>
+    </div>
+    <p> <button style="float: right; margin-right: 140px; border: 1px solid #0d6efd; color: white; padding: 5px 10px; background-color: #0d6efd; border-radius:5px">Nhập hàng</button></p>
+}
+<script>
+    var loadFile = function (event) {
+        image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

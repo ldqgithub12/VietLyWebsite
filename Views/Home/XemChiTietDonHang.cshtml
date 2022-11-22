@@ -1,0 +1,29 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.ChiTietDonHang>
+@{
+    ViewBag.Title = "XemChiTietDonHang";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<br>
+<h2 style="text-align:center">Thông tin đặt hàng</h2>
+<br>
+<table border="2" style="margin-bottom: 15px; margin-left: 10%; width: 80%">
+    <tr>
+        <th class="dinhdangbang">Tên sách</th>
+        <th class="dinhdangbang">Số lượng</th>
+        <th class="dinhdangbang">Giá bán</th>
+        <th class="dinhdangbang">Thành tiền</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="dinhdangbang">@item.Sach.TenSach</td>
+            <td class="dinhdangbang">@item.SoLuong</td>
+            <td class="dinhdangbang">@(Convert.ToInt32(item.GiaBan)) VNĐ</td>
+            <td class="dinhdangbang">@(Convert.ToInt32(item.GiaBan)*item.SoLuong) VNĐ</td>
+        </tr>
+    }
+
+</table>
+<p style="float: right; margin: 10px 130px"><a href="@Url.Action("XemDonHang","Home")" class="dinhdangchucnang">Quay lại</a></p>
+

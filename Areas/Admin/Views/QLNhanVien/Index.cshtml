@@ -1,0 +1,71 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.NhanVien>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align: center;">Quản lý nhân viên</h1>
+    </div>
+}
+<p class="themmoibtn"><a href="@Url.Action("ThemNV","QLNhanVien")" style="text-decoration: none; display: block; padding: 15px 25px;">Thêm nhân viên</a></p>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Thông tin sách
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Mã nhân viên</th>
+                    <th>Tên nhân viên</th>
+                    <th>Chức vụ</th>
+                    <th>Địa chỉ</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Mật khẩu</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="row_@item.MaNV">
+                        <td width="150px">@Html.DisplayFor(modelItem => item.MaNV)</td>
+                        <td width="150px">
+                            @Html.DisplayFor(modelItem => item.HoTen)
+                        </td>
+
+                        <td>
+                            @item.Quyen.TenQuyen
+                        </td>
+                        <td width="200px">@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                        <td width="150px">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td width="150px">@Html.DisplayFor(modelItem => item.SoDT)</td>
+                        <td>@item.MatKhau</td>
+                        <td>
+                            <p>
+                                <a href="@Url.Action("SuaNV","QLNhanVien",new { id = item.MaNV})" style="text-decoration: none;"><i class="fas fa-tools"></i> Sửa</a>
+                            </p>
+                            <p>
+                                <i class="fas fa-trash-alt"></i>
+                                @Ajax.ActionLink("Xóa", "XoaNV", new { id = item.MaNV },
+                                    new AjaxOptions
+                                         {
+                                             Confirm = "Bạn có muốn xóa bản ghi này ?",
+                                        OnComplete = "$('row_" + item.MaNV + "').remove()",
+                                        HttpMethod = "Delete"
+                                         })
+                            </p>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

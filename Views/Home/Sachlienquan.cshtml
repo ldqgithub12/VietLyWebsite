@@ -1,0 +1,19 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.Sach>
+<div class="splienquan">
+    <h4 style="padding: 15px; font-weight: bold;">
+        SẢN PHẨM LIÊN QUAN
+    </h4>
+    <hr>
+    @foreach (var item in Model)
+    {
+        <div class="xuhuong_content">
+            @{ 
+                string ImagePath = "~/wwwroot/Images/" + item.Anh;
+            }
+            <p class="scaleanh"><a href="@Url.Action("XemChiTietSach","Home",new {id = item.MaSach })"><img src="@Url.Content(ImagePath)" alt="" class="anhmh"></a></p>
+            <p class="tensach">@item.TenSach</p>
+            <p class="gia">@item.Gia.ToString("#,##") đ</p>
+            <a href="@Url.Action("ThemGioHang","GioHang",new {@MaSach = item.MaSach,@strURL = Request.Url.ToString() })" class="themvaogio"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+        </div>
+    }
+</div>

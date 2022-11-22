@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.DanhMuc>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="page_menu">
+    <div class="menu">
+        <ul class="main_menu">
+            <li class="lititle" style="background-color: #C92127; text-align: center;"><a href="#" style="color: white;">DANH MỤC SẢN PHẨM</a></li>
+            @foreach (var item in Model)
+            {
+                <li><a href="@Url.Action("Xemdanhsachsach","Home",new {id = item.MaDM })">@item.TenDM</a></li>
+            }
+            @*<li><a href="#">Sach nước ngoài</a></li>
+        <li><a href="#">Sách giá khoa</a></li>
+        <li><a href="#">Truyện tranh</a></li>
+        <li><a href="#">Truyện chữ</a></li>*@
+        </ul>
+    </div>
+    <div class="slide_banner">
+        <div class="slider_imgs">
+            <input type="radio" name="inputslider" id="img1">
+            <input type="radio" name="inputslider" id="img2">
+            <input type="radio" name="inputslider" id="img3">
+
+            <img src="~/wwwroot/Images/bodybanner1.jpg" alt="img1" class="imgslider1">
+            <img src="~/wwwroot/Images/bodybanner2.jpg" alt="img2" class="imgslider2">
+            <img src="~/wwwroot/Images/bodybanner3.jpg" alt="img3" class="imgslider3">
+        </div>
+        <div class="labelslider">
+            <label for="img1"></label>
+            <label for="img2"></label>
+            <label for="img3"></label>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="smaller_banner">
+    <div class="sml_bn">
+        <img src="~/wwwroot/Images/smallbaner1.jpg" alt="" width="95%" height="95%" style="padding: 5px;">
+    </div>
+    <div class="sml_bn">
+        <img src="~/wwwroot/Images/smallbaner2.jpg" alt="" width="95%" height="95%" style="padding: 5px;">
+    </div>
+    <div class="sml_bn">
+        <img src="~/wwwroot/Images/smallbaner3.jpg" alt="" width="95%" height="95%" style="padding: 5px;">
+    </div>
+    <div class="sml_bn">
+        <img src="~/wwwroot/Images/smallbaner1.jpg" alt="" width="95%" height="95%" style="padding: 5px;">
+    </div>
+</div>
+

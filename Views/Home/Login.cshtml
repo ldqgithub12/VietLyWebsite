@@ -1,0 +1,71 @@
+﻿@model LeDangQuang_DoAnTotNghiep.Models.KhachHang
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng nhập</title>
+    <link rel="shortcut icon" href="~/wwwroot/icon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/wwwroot/icon/favicon.ico" type="image/x-icon">
+    <!-- Font Icon -->
+    <link href="~/wwwroot/LoginAssets/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <!-- Main css -->
+    <link href="~/wwwroot/LoginAssets/css/style.css" rel="stylesheet" />
+    <!--Font family-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+</head>
+<body>
+
+    <div class="main">
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="~/wwwroot/LoginAssets/images/signin-image.jpg"></figure>
+                    </div>
+
+                    <div class="signin-form" >
+                        <h2 class="form-title" style="font-family:'Roboto' !important">Đăng nhập</h2>
+                        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "register-form", @id = "login-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-email"></i></label>
+                                @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                @*   <input type="password" name="your_pass" id="your_pass" placeholder="Password" />*@
+                                @Html.PasswordFor(m => m.MatKhau, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group form-button" >
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Đăng Nhập" style="font-family:'Roboto' !important" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+@*    <script src="~/wwwroot/LoginAssets/vendor/jquery/jquery.min.js"></script>*@
+    <script src="~/wwwroot/LoginAssets/js/main.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

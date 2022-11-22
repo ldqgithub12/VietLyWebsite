@@ -1,0 +1,22 @@
+﻿@model LeDangQuang_DoAnTotNghiep.Models.KhachHang
+@{
+    ViewBag.Title = "XemThongTinCaNhan";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h2 style="text-align: center;">Bảng điều khiển của khách hàng</h2>
+<br>
+<a class="btn-capnhat" href="@Url.Action("CapNhatThongTinCaNhan","Home",new {id = Model.MaKH })">Cập nhật thông tin</a>
+<br>
+<br>
+<table style="margin-left: 410px; margin-top: 30px;">
+    <tr>
+        <td><b>Họ tên</b>: @Model.HoTen </td>
+        <td style="padding-left: 80px;"><b>Địa chỉ</b>: @Model.DiaChi</td>
+    </tr>
+    <tr>
+        <td><b>Email</b>: @Model.Email</td>
+        <td style="padding-left: 80px;"><b>Số điện thoại</b>: @Model.SoDT</td>
+    </tr>
+</table>
+

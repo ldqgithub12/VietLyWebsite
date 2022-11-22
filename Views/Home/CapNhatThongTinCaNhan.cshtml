@@ -1,0 +1,27 @@
+﻿@model LeDangQuang_DoAnTotNghiep.Models.KhachHang
+@{
+    ViewBag.Title = "CapNhatThongTinCaNhan";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+@using (Html.BeginForm("CapNhatThongTinCaNhan", "Home", FormMethod.Post))
+{
+    @Html.HiddenFor(model=>model.MaKH)
+    @Html.HiddenFor(model=>model.MatKhau)
+    <h2 style="text-align: center;">Bảng điều khiển của khách hàng</h2>
+    <br>
+    <table style="margin-left: 410px; margin-top: 30px;">
+        <tr>
+            <td><b>Họ tên</b>: @Html.EditorFor(model=>model.HoTen) </td>
+            <td style="padding-left: 80px;"><b>Địa chỉ</b>: @Html.EditorFor(model => model.DiaChi)</td>
+        </tr>
+        <tr>
+            <td><b>Email</b>: @Html.EditorFor(model => model.Email)</td>
+            <td style="padding-left: 80px;"><b>Số điện thoại</b>: @Html.EditorFor(model => model.SoDT)</td>
+        </tr>
+    </table>
+    <br />
+    <button style="background-color:white; padding:5px 10px; border-radius:4px; margin-left: 600px">Cập nhật</button>
+    <a href="@Url.Action("XemThongTinCaNhan","Home")" style="padding:6px 10px; border: 1px solid black; border-radius:4px; margin-left: 40px; color:black">Hủy bỏ</a>
+}
+

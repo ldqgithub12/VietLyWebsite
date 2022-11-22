@@ -1,0 +1,70 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.Sach>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section header{
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align: center;">Quản lý thông tin sách</h1>
+    </div>
+}
+<p class="themmoibtn"><a href="@Url.Action("ThemSach","QLSach")" style="text-decoration: none; display: block; padding: 15px 25px;">Thêm sách</a></p>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Thông tin sách
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Tên sách</th>
+                    <th>Ảnh</th>
+                    <th>Mô tả</th>
+                    <th>Số lượng</th>
+                    <th>Tác giả</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="row_@item.MaSach">
+                        <td width="150px">
+                            @Html.DisplayFor(modelItem => item.TenSach)
+                        </td>
+                        <td width="150px">
+                            @{
+                                string ImagePath = "~/wwwroot/Images/" + item.Anh;
+                            }
+                            <img src="@Url.Content(ImagePath)" width="150" />
+                        </td>
+                        <td width="400px">@Html.DisplayFor(modelItem => item.MoTa)</td>
+                        <td width="150px">@Html.DisplayFor(modelItem => item.SoLuong)</td>
+                        <td width="150px">@Html.DisplayFor(modelItem => item.TacGia)</td>
+                        <td>
+                            <p>
+                                <a href="@Url.Action("SuaSach","QLSach",new { id = item.MaSach})" style="text-decoration: none;"><i class="fas fa-tools"></i> Sửa</a>
+                            </p>
+                            <p>
+                                <i class="fas fa-trash-alt"></i>
+                                @Ajax.ActionLink("Xóa", "XoaSach", new { id = item.MaSach },
+                                    new AjaxOptions
+                                         {
+                                             Confirm = "Bạn có muốn xóa bản ghi này ?",
+                                             OnComplete = "$('row_" + item.MaSach + "').remove()",
+                                             HttpMethod = "Delete"
+                                         })
+                            </p>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

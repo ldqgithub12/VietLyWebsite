@@ -1,0 +1,55 @@
+﻿@model IEnumerable<LeDangQuang_DoAnTotNghiep.Models.TheLoai>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <div class="container-fluid px-4">
+        <h1 class="mt-4" style="text-align: center;">Quản lý thông tin thể loại</h1>
+    </div>
+}
+<p class="themmoibtn"><a href="@Url.Action("ThemTL","QLTheLoai")" style="text-decoration: none; display: block; padding: 15px 25px;">Thêm thể loại</a></p>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Thông tin thể loại
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Mã Thể loại</th>
+                    <th>Tên thể loại</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="row_@item.MaTL">
+                        <td width="150px">@item.MaTL</td>
+                        <td>
+                            @item.TenTL
+                        </td>
+                        <td width="150px">
+                            <p>
+                                <a href="@Url.Action("SuaTL","QLTheLoai",new { id = item.MaTL})" style="text-decoration: none;"><i class="fas fa-tools"></i> Sửa</a>
+                            </p>
+                            <p>
+                                <i class="fas fa-trash-alt"></i>
+                                @Ajax.ActionLink("Xóa", "XoaTL", new { id = item.MaTL },
+                                    new AjaxOptions
+                                         {
+                                             Confirm = "Bạn có muốn xóa bản ghi này ?",
+                                        OnComplete = "$('row_" + item.MaTL + "').remove()",
+                                        HttpMethod = "Delete"
+                                         })
+                            </p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
